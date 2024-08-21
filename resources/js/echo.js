@@ -9,3 +9,14 @@ window.Echo = new Echo({
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true
 });
+
+window.Echo.channel('tasks')
+    .listen('TaskCreated', e => {
+        alert(`Created New Task : ${e.task.title}`)
+    })
+    .listen('TaskUpdated', e => {
+        alert(`Updated Task : ${e.task.title}`)
+    })
+    .listen('TaskDeleted', e => {
+        alert(`Delete Task : ${e.task.title}`)
+    })
