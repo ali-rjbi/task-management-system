@@ -35,15 +35,6 @@ class TaskService
         return $this->taskRepository->getAndSearch($params, $perPage);
     }
 
-    /**
-     * Retrieve all tasks.
-     *
-     * @return Collection
-     */
-    public function getAllTasks(): Collection
-    {
-        return $this->taskRepository->findAll();
-    }
 
     /**
      * Find a task by its ID.
