@@ -23,6 +23,8 @@ class TaskResource extends JsonResource
             'user_id' => $this->user_id,
             'status_id' => $this->status_id,
             'priority_id' => $this->priority_id,
+
+            'user' => new UserResource($this->whenLoaded('user'))
         ];
     }
 }

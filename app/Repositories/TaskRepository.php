@@ -16,7 +16,7 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function getAndSearch(array $params, int $perPage): LengthAwarePaginator
     {
-        $query = Task::query();
+        $query = Task::query()->with(['user','status','priority']);
 
         // Apply filters based on params
         if (isset($params['status'])) {
