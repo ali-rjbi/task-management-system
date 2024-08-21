@@ -6,6 +6,7 @@ use App\Events\TaskCreated;
 use App\Events\TaskDeleted;
 use App\Events\TaskUpdated;
 use App\Jobs\ProcessHighPriorityTask;
+use App\Jobs\SendTaskCompletionNotification;
 use App\Models\Task;
 
 class TaskObserver
@@ -30,6 +31,12 @@ class TaskObserver
     public function updated(Task $task): void
     {
         event(new TaskUpdated($task));
+
+        if ($task->status->name === 'Completed') {
+            // Dispatch the job to the high-priority queue
+            SendTaskCompletionNotification::dispatch($task)->onQueue('high-priority');
+        }
+
     }
 
     /**
