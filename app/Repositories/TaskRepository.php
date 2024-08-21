@@ -31,7 +31,9 @@ class TaskRepository implements TaskRepositoryInterface
             $query->where('user_id', $params['user_id']);
         }
 
-        return $query->paginate($perPage);
+        return $query
+            ->latest()
+            ->paginate($perPage);
     }
 
     /**
