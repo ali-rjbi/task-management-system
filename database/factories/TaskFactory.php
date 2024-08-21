@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Task;
 use App\Models\TaskPriority;
 use App\Models\TaskStatus;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -15,7 +16,7 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomNumber(),
+            'user_id' => User::factory(),
             'title' => $this->faker->word(),
             'description' => $this->faker->text(),
             'due_date' => Carbon::now()->addDays(rand(1,5)),
