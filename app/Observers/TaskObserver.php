@@ -44,7 +44,7 @@ class TaskObserver
      */
     public function deleted(Task $task): void
     {
-        event(new TaskDeleted($task));
+        event(new TaskDeleted($task->id));
     }
 
     /**

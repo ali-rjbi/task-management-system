@@ -18,5 +18,5 @@ window.Echo.channel('tasks')
         alert(`Updated Task : ${e.task.title}`)
     })
     .listen('TaskDeleted', e => {
-        alert(`Delete Task : ${e.task.title}`)
+        alert(`Delete Task : ${e.taskId}`)
     })
