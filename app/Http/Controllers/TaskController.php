@@ -46,8 +46,8 @@ class TaskController extends Controller
     public function getUserTasks(FetchTasksRequest $request): Response
     {
         $tasks = $this->taskService->getTasks(
-            params: array_merge($request->validated(),['user_id' => $request->user()->id]),
-            perPage: $request->validated('perPage',15)
+            params: array_merge($request->validated(), ['user_id' => $request->user()->id]),
+            perPage: $request->validated('perPage', 15)
         );
 
         return $this->paginatedTasksResponse($tasks);
@@ -61,9 +61,13 @@ class TaskController extends Controller
      */
     public function show(int $id): Response
     {
-        return $this->showTaskResponse(
-            $this->taskService->getTaskById($id)
-        );
+        $task = $this->taskService->getTaskById($id);
+
+        if (!$task) {
+            throw $this->taskNotFound();
+        }
+
+        return $this->showTaskResponse($task);
     }
 
     /**
