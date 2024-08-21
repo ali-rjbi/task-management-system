@@ -10,7 +10,7 @@ class FetchTasksRequest extends FormRequest
     {
         return [
             'user_id' => 'integer',
-            'perPage' => 'integer'
+            'perPage' => 'integer|max:50'
         ];
     }
 }
