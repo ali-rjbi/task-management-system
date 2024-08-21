@@ -46,7 +46,7 @@ class TaskController extends Controller
     public function getUserTasks(FetchTasksRequest $request): Response
     {
         $tasks = $this->taskService->getTasks(
-            params: ['user_id' => $request->user()->id],
+            params: array_merge($request->validated(),['user_id' => $request->user()->id]),
             perPage: $request->validated('perPage',15)
         );
 
