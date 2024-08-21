@@ -7,9 +7,11 @@ use App\Services\TaskService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TasksList extends Component
 {
+    use WithPagination;
     public $showNewTaskNotification = false;
 
     protected $taskService;
