@@ -39,7 +39,7 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function findById(int $id): ?Task
     {
-        return Task::find($id);
+        return Task::find($id)->with(['user','status','priority']);
     }
 
     /**
