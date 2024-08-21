@@ -37,14 +37,6 @@ class TaskRepository implements TaskRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getAll(): Collection
-    {
-        return Task::all();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function findById(int $id): ?Task
     {
         return Task::find($id);

@@ -19,13 +19,6 @@ interface TaskRepositoryInterface
     public function getAndSearch(array $params, int $perPage): LengthAwarePaginator;
 
     /**
-     * Retrieve all tasks from the repository.
-     *
-     * @return Collection
-     */
-    public function getAll(): Collection;
-
-    /**
      * Find a specific task by its ID.
      *
      * @param int $id
