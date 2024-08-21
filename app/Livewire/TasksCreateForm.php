@@ -2,8 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Http\Requests\StoreTaskRequest;
-use App\Models\Task;
 use App\Models\TaskPriority;
 use App\Models\TaskStatus;
 use App\Services\TaskService;
@@ -43,7 +41,7 @@ class TasksCreateForm extends Component
 
         $this->reset(['title', 'description', 'status_id', 'priority_id', 'due_date']);
 
-        session()->flash('message', 'Task successfully added.');
+        $this->dispatch('notify_alert', 'Task successfully added.');
     }
 
     public function render()

@@ -4,12 +4,6 @@
         Add New Task
     </button>
 
-    <div x-data="{ show: true }" x-show="show && '{{ session('message') }}'"
-         x-init="setTimeout(() => show = false, 3000)"
-         class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg mt-3">
-        {{ session('message') }}
-    </div>
-
 
     <!-- Drawer -->
     <div x-show="open" @click.away="open = false"
