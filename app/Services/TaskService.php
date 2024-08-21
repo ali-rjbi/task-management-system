@@ -46,7 +46,13 @@ class TaskService
      */
     public function getTaskById(int $id): ?Task
     {
-        return $this->taskRepository->findById($id);
+        $task = $this->taskRepository->findById($id);
+
+        if (!$task) {
+            throw new ModelNotFoundException("Task not found with ID: {$id}");
+        }
+
+        return $task;
     }
 
     /**
@@ -70,13 +76,9 @@ class TaskService
      */
     public function updateTask(int $taskId, array $data): bool
     {
-        $task = $this->taskRepository->findById($taskId);
+        $task = $this->getTaskById($taskId);
 
         Gate::authorize('update', $task);
-
-        if (!$task) {
-            throw new ModelNotFoundException("Task not found with ID: {$taskId}");
-        }
 
         return $this->taskRepository->update($task, $data);
     }
@@ -91,13 +93,9 @@ class TaskService
      */
     public function deleteTask(int $taskId): ?bool
     {
-        $task = $this->taskRepository->findById($taskId);
+        $task = $this->getTaskById($taskId);
 
         Gate::authorize('delete', $task);
-
-        if (!$task) {
-            throw new ModelNotFoundException("Task not found with ID: {$taskId}");
-        }
 
         return $this->taskRepository->delete($task);
     }
