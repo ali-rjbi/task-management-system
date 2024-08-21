@@ -8,6 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
+use Illuminate\Support\Facades\Gate;
 
 class TaskService
 {
@@ -71,6 +72,8 @@ class TaskService
     {
         $task = $this->taskRepository->findById($taskId);
 
+        Gate::authorize('update', $task);
+
         if (!$task) {
             throw new ModelNotFoundException("Task not found with ID: {$taskId}");
         }
@@ -89,6 +92,8 @@ class TaskService
     public function deleteTask(int $taskId): ?bool
     {
         $task = $this->taskRepository->findById($taskId);
+
+        Gate::authorize('delete', $task);
 
         if (!$task) {
             throw new ModelNotFoundException("Task not found with ID: {$taskId}");
