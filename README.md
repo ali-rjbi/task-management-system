@@ -1,66 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 📝 Task Management System Documentation
 
-## About Laravel
+## Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Welcome to the **Task Management System**! This project is a comprehensive solution for managing tasks, designed with scalability and performance in mind. Below, you'll find all the information you need to set up and run the project on your local environment.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Tools & Technologies
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This project has been built using the following technologies:
 
-## Learning Laravel
+- **Laravel** - A robust PHP framework for web applications.
+- **Livewire** - A full-stack framework for Laravel that makes building dynamic interfaces simple, without leaving the comfort of Laravel.
+- **Tailwind CSS** - A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup.
+- **Redis** - An in-memory data structure store used for caching and queue management.
+- **WebSocket** & **Laravel Echo** - For real-time broadcasting of events.
+- **Pest** - A delightful PHP testing framework with a focus on simplicity.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Getting Started
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Option 1: Running with Docker and Laravel Sail
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+If you have Docker installed on your system, you can use Laravel Sail to easily set up and run the project.
 
-## Laravel Sponsors
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/mr-mokhtari/task-management-system.git
+   cd task-management-system
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install dependencies**:
+   ```bash
+   docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+   ```
+   For more details, please refer to the [Laravel Sail documentation](https://laravel.com/docs/11.x/sail#installing-composer-dependencies-for-existing-projects).
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. **Set up your environment variables**:
+   Copy `.env.example` to `.env` and configure your database, Redis, and other necessary settings.
+   ```bash
+   cp .env.example .env
+   ```
 
-## Contributing
+You should open the `.env` file and set the following values to ensure compatibility with Sail's Docker services:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```env
+QUEUE_CONNECTION=redis
 
-## Code of Conduct
+REDIS_HOST=redis
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_HOST=mariadb
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
 
-## Security Vulnerabilities
+Adjust these settings as needed according to your policies or requirements.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Start the Docker containers**:
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
 
-## License
+5. **Run migrations and seed the database**:
+   ```bash
+   ./vendor/bin/sail artisan migrate --seed
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Compile the frontend assets**:
+   ```bash
+   ./vendor/bin/sail npm install
+   ./vendor/bin/sail npm run dev
+   ```
+
+7. **Access the application**:
+   Open your browser and navigate to [http://localhost](http://localhost)
+
+### Option 2: Running without Docker
+
+If you do not have Docker installed but have PHP, MySQL, and Node.js set up on your system, you can run the project manually.
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/mr-mokhtari/task-management-system.git
+   cd task-management-system
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   composer install
+   ```
+
+3. **Set up your environment variables**:
+   Copy `.env.example` to `.env` and configure your database, Redis, and other necessary settings.
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Create a database**:
+   Create a new database in your MySQL server and update the `.env` file with your database credentials.
+
+5. **Run migrations and seed the database**:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+6. **Compile the frontend assets**:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+7. **Serve the application**:
+   ```bash
+   php artisan serve
+   ```
+   Now, open your browser and navigate to [http://localhost](http://localhost)
+
+## 🧪 Running Tests
+
+To ensure everything is working as expected, you can run the project's tests. Here’s how you can do it depending on your setup:
+
+### With Docker and Sail
+
+1. **Run the tests**:
+   ```bash
+   ./vendor/bin/sail artisan test
+   ```
+
+### Without Docker
+
+1. **Run the tests**:
+   ```bash
+   php artisan test
+   ```
+
+## 🎉 Conclusion
+
+Congratulations! You’ve successfully set up and run the **Task Management System**. Whether you chose to use Docker or not, the application should now be up and running. If you encounter any issues or have any questions, don’t hesitate to reach out.
