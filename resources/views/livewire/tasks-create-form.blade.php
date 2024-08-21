@@ -16,8 +16,13 @@
          class="fixed inset-y-0 right-0 max-w-full flex z-50">
         <div class="w-screen max-w-md">
             <div class="h-full flex flex-col bg-white shadow-xl overflow-y-auto">
-                <div class="py-6 px-4 bg-blue-600">
+                <div class="py-6 px-4 bg-blue-600 flex justify-between items-center">
                     <h2 class="text-lg font-medium text-white">New Task</h2>
+                    <button @click="open = false" class="text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
                 <div class="p-6 flex-grow">
                     <form wire:submit.prevent="addTask">
@@ -45,7 +50,7 @@
                                                wire:model="status_id" value="{{ $status->id }}"
                                                class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
                                         <label for="status_{{ $status->id }}"
-                                               class="ml-3 block text-sm font-medium text-gray-700">
+                                               class="ms-3 block text-sm font-medium text-gray-700">
                                             {{ $status->name }}
                                         </label>
                                     </div>
@@ -63,7 +68,7 @@
                                                wire:model="priority_id" value="{{ $priority->id }}"
                                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
                                         <label for="priority_{{ $priority->id }}"
-                                               class="ml-3 block text-sm font-medium text-gray-700">
+                                               class="ms-3 block text-sm font-medium text-gray-700">
                                             {{ $priority->name }}
                                         </label>
                                     </div>
@@ -74,9 +79,9 @@
 
                         <div class="mb-4">
                             <label for="dueDate" class="block text-sm font-medium text-gray-700">Due Date</label>
-                            <input type="date" wire:model="dueDate" id="dueDate"
+                            <input type="date" wire:model="due_date" id="dueDate"
                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            @error('dueDate') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('due_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="flex justify-end">
