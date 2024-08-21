@@ -20,7 +20,7 @@ class TaskRepository implements TaskRepositoryInterface
 
         // Apply filters based on params
         if (isset($params['status'])) {
-            $query->where('status', $params['status']);
+            $query->where('status_id', $params['status']);
         }
 
         if (isset($params['due_date'])) {
