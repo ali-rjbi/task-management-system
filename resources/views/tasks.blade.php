@@ -7,6 +7,8 @@
 
     <livewire:tasks-create-form></livewire:tasks-create-form>
 
+    <livewire:tasks-edit-form></livewire:tasks-edit-form>
+
     <livewire:tasks-list></livewire:tasks-list>
 
 </x-app-layout>
