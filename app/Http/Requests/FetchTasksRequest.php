@@ -10,6 +10,8 @@ class FetchTasksRequest extends FormRequest
     {
         return [
             'user_id' => 'integer',
+            'status' => 'integer|exists:task_statuses,id',
+            'due_date' => 'date',
             'perPage' => 'integer|max:50'
         ];
     }
