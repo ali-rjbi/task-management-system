@@ -44,10 +44,8 @@ trait FormatsTaskResponses
 
     public function taskUpdated($task): Response
     {
-        return $this->singleResourceResponse(
-            data: $task,
+        return $this->successfulResponse(
             message: self::$taskUpdatedMessage,
-            apiResource: TaskResource::class
         );
     }
 
