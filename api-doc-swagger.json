@@ -1,0 +1,4042 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "task-management-system",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "auth"
+    },
+    {
+      "name": "tasks"
+    },
+    {
+      "name": "tasks/secured"
+    }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "summary": "login",
+        "x-apidog-folder": "auth",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "admin@example.ir"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "email_verified_at": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "email",
+                        "email_verified_at",
+                        "created_at"
+                      ],
+                      "x-apidog-orders": [
+                        "id",
+                        "name",
+                        "email",
+                        "email_verified_at",
+                        "created_at"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "user",
+                    "token"
+                  ],
+                  "x-apidog-orders": [
+                    "user",
+                    "token"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "200 OK",
+                    "value": {
+                      "user": {
+                        "id": 1,
+                        "name": "Test User",
+                        "email": "test@example.com",
+                        "email_verified_at": "2024-08-21T20:07:28.000000Z",
+                        "created_at": "2024-08-21T20:07:28.000000Z"
+                      },
+                      "token": "2|DZfHYRnmoZAhhIf1i3TPDCrU76mcXYYlXshXd2bn1ba867cd"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422 password required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "password"
+                      ],
+                      "x-apidog-orders": [
+                        "password"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 password required",
+                    "value": {
+                      "message": "The password field is required.",
+                      "errors": {
+                        "password": [
+                          "The password field is required."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "422 provided credentials don't match",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "message"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 provided credentials don't match",
+                    "value": {
+                      "message": "The provided credentials don't match"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-422:422 empty form": {
+            "description": "422 empty form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "email",
+                        "password"
+                      ],
+                      "x-apidog-orders": [
+                        "email",
+                        "password"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 empty form",
+                    "value": {
+                      "message": "The email field is required. (and 1 more error)",
+                      "errors": {
+                        "email": [
+                          "The email field is required."
+                        ],
+                        "password": [
+                          "The password field is required."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536734-run"
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "register",
+        "x-apidog-folder": "auth",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "user test"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "test@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "password_confirmation"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "message"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "200 OK",
+                    "value": {
+                      "message": "The registration is completed successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422 Duplicate entry/Email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ],
+                      "x-apidog-orders": [
+                        "email"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 Duplicate entry/Email",
+                    "value": {
+                      "message": "Duplicate entry 'test@example.com'",
+                      "errors": {
+                        "email": [
+                          "Duplicate entry 'test@example.com'"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-422:422 validate password confirmation": {
+            "description": "422 validate password confirmation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "password",
+                        "email"
+                      ],
+                      "x-apidog-orders": [
+                        "password",
+                        "email"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 validate password confirmation",
+                    "value": {
+                      "message": "The password field confirmation does not match. (and 1 more error)",
+                      "errors": {
+                        "password": [
+                          "The password field confirmation does not match."
+                        ],
+                        "email": [
+                          "Duplicate entry 'test@example.com'"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-422:422 empty form": {
+            "description": "422 empty form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "password",
+                        "email"
+                      ],
+                      "x-apidog-orders": [
+                        "name",
+                        "password",
+                        "email"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 empty form",
+                    "value": {
+                      "message": "The name field is required. (and 2 more errors)",
+                      "errors": {
+                        "name": [
+                          "The name field is required."
+                        ],
+                        "password": [
+                          "The password field is required."
+                        ],
+                        "email": [
+                          "The email field is required."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536735-run"
+      }
+    },
+    "/api/tasks": {
+      "get": {
+        "summary": "list",
+        "x-apidog-folder": "tasks",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tasks"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "paginate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "due_date": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer"
+                          },
+                          "status_id": {
+                            "type": "integer"
+                          },
+                          "priority_id": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "email_verified_at": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-orders": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-orders": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "null"
+                        },
+                        "next": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-orders": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-orders": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-orders": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-orders": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "paginate",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 1,
+                          "title": "rerum",
+                          "description": "Accusamus tempore qui atque optio ea qui aut consequuntur. Enim aliquid consequatur ipsa vitae voluptas beatae illum fugit. Aliquam voluptates ab ut quia.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "On Hold",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 6,
+                          "status_id": 4,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 6,
+                            "name": "Flossie Fritsch",
+                            "email": "elnora.cremin@example.net",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 2,
+                          "title": "sed",
+                          "description": "Modi molestias incidunt illum dolores. Mollitia repellendus sequi iusto dignissimos odio. Tenetur suscipit inventore quidem fugiat est ipsa ratione sunt.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "In Progress",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 2,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 3,
+                          "title": "nostrum",
+                          "description": "Distinctio dolores rerum quaerat voluptas impedit officiis. Nulla repudiandae illum quis hic blanditiis debitis et. Commodi est et ut odio repellat.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Completed",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "title": "saepe",
+                          "description": "A minima quis impedit unde. Sed itaque accusamus eos natus ut molestiae nisi.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Pending",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 1,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 5,
+                          "title": "iure",
+                          "description": "Rerum quia in architecto aperiam. Et consequatur molestiae at est. Non maxime velit autem doloremque.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "In Progress",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 2,
+                          "status_id": 2,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 2,
+                            "name": "Mrs. Anjali Boehm",
+                            "email": "moore.electa@example.net",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 6,
+                          "title": "autem",
+                          "description": "Quis non eos et quidem aut quasi qui. Distinctio aut odio illum neque sint officiis harum. Ab quis dolorum est qui laboriosam.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Pending",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 1,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 7,
+                          "title": "et",
+                          "description": "Odio eveniet asperiores delectus quasi. Aut aut qui maxime nulla. Repudiandae voluptas occaecati adipisci.",
+                          "due_date": "2024-08-24 13:12:52",
+                          "status": "In Progress",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 4,
+                          "status_id": 2,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 4,
+                            "name": "Abel Hand",
+                            "email": "bertrand.kautzer@example.org",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 8,
+                          "title": "omnis",
+                          "description": "Totam quia fugit qui tempore ut. At voluptates sed consequatur autem quos. Ut nulla labore eum eum quo. Odio totam et qui quaerat illum dolorem corporis. Sed dolore est non.",
+                          "due_date": "2024-08-23 13:12:52",
+                          "status": "In Progress",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 3,
+                          "status_id": 2,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 3,
+                            "name": "Marcelle Gusikowski",
+                            "email": "nia.hodkiewicz@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 9,
+                          "title": "odit",
+                          "description": "Quasi veniam aut omnis voluptas voluptas. Voluptate totam ut aliquam accusantium. Ab sequi et est numquam et rem voluptas. Quidem consequatur ut consequatur.",
+                          "due_date": "2024-08-25 13:12:52",
+                          "status": "Completed",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 3,
+                          "status_id": 3,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 3,
+                            "name": "Marcelle Gusikowski",
+                            "email": "nia.hodkiewicz@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 10,
+                          "title": "quae",
+                          "description": "Et mollitia omnis at numquam distinctio officia et nesciunt. Eum et dolores dolor beatae illum est. Animi aliquid est fuga ut ut ipsa maxime. In non odit voluptatibus. Qui dolores ab vero rerum.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "In Progress",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 6,
+                          "status_id": 2,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 6,
+                            "name": "Flossie Fritsch",
+                            "email": "elnora.cremin@example.net",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 11,
+                          "title": "error",
+                          "description": "Eos earum velit recusandae sapiente. Quos ut facere placeat iusto et dolores alias. Praesentium dolores voluptatem ea nam sunt quidem consectetur. Optio sit blanditiis sunt pariatur repellat.",
+                          "due_date": "2024-08-23 13:12:52",
+                          "status": "Pending",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 4,
+                          "status_id": 1,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 4,
+                            "name": "Abel Hand",
+                            "email": "bertrand.kautzer@example.org",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 12,
+                          "title": "voluptate",
+                          "description": "Totam non ipsa et ut autem. Magnam dolores doloremque aut id adipisci facilis omnis. At harum perferendis ut qui et. Neque aperiam nobis quaerat quasi.",
+                          "due_date": "2024-08-25 13:12:52",
+                          "status": "In Progress",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 3,
+                          "status_id": 2,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 3,
+                            "name": "Marcelle Gusikowski",
+                            "email": "nia.hodkiewicz@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 13,
+                          "title": "voluptates",
+                          "description": "Ratione veniam possimus dolor et consequuntur repellat dolores. Quis voluptas rerum facilis pariatur nihil amet ea perspiciatis. A consequatur nulla asperiores quis iusto rem dolor sapiente.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Pending",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 1,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 14,
+                          "title": "eum",
+                          "description": "Corporis consequuntur quos ad recusandae autem quia ducimus. Nemo et sequi debitis ullam non sit. Dignissimos ducimus velit est alias fugit enim dolorum.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "On Hold",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 4,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 15,
+                          "title": "numquam",
+                          "description": "Et iure et sapiente rerum est itaque. Earum eum veniam quisquam et quis. Consequuntur explicabo sed dolores cumque temporibus placeat aut.",
+                          "due_date": "2024-08-23 13:12:52",
+                          "status": "Pending",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 4,
+                          "status_id": 1,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 4,
+                            "name": "Abel Hand",
+                            "email": "bertrand.kautzer@example.org",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        }
+                      ],
+                      "links": {
+                        "first": "http://localhost/api/tasks?page=1",
+                        "last": "http://localhost/api/tasks?page=4",
+                        "prev": null,
+                        "next": "http://localhost/api/tasks?page=2"
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 4,
+                        "links": [
+                          {
+                            "url": null,
+                            "label": "&laquo; Previous",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=1",
+                            "label": "1",
+                            "active": true
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=2",
+                            "label": "2",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=3",
+                            "label": "3",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=4",
+                            "label": "4",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=2",
+                            "label": "Next &raquo;",
+                            "active": false
+                          }
+                        ],
+                        "path": "http://localhost/api/tasks",
+                        "per_page": 15,
+                        "to": 15,
+                        "total": 50
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-200:paginate perPage": {
+            "description": "paginate perPage",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "due_date": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer"
+                          },
+                          "status_id": {
+                            "type": "integer"
+                          },
+                          "priority_id": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "email_verified_at": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-orders": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-orders": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "null"
+                        },
+                        "next": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-orders": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-orders": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-orders": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-orders": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "paginate perPage",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 1,
+                          "title": "rerum",
+                          "description": "Accusamus tempore qui atque optio ea qui aut consequuntur. Enim aliquid consequatur ipsa vitae voluptas beatae illum fugit. Aliquam voluptates ab ut quia.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "On Hold",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 6,
+                          "status_id": 4,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 6,
+                            "name": "Flossie Fritsch",
+                            "email": "elnora.cremin@example.net",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 2,
+                          "title": "sed",
+                          "description": "Modi molestias incidunt illum dolores. Mollitia repellendus sequi iusto dignissimos odio. Tenetur suscipit inventore quidem fugiat est ipsa ratione sunt.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "In Progress",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 2,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 3,
+                          "title": "nostrum",
+                          "description": "Distinctio dolores rerum quaerat voluptas impedit officiis. Nulla repudiandae illum quis hic blanditiis debitis et. Commodi est et ut odio repellat.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Completed",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "title": "saepe",
+                          "description": "A minima quis impedit unde. Sed itaque accusamus eos natus ut molestiae nisi.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Pending",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 1,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 5,
+                          "title": "iure",
+                          "description": "Rerum quia in architecto aperiam. Et consequatur molestiae at est. Non maxime velit autem doloremque.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "In Progress",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 2,
+                          "status_id": 2,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 2,
+                            "name": "Mrs. Anjali Boehm",
+                            "email": "moore.electa@example.net",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        }
+                      ],
+                      "links": {
+                        "first": "http://localhost/api/tasks?page=1",
+                        "last": "http://localhost/api/tasks?page=10",
+                        "prev": null,
+                        "next": "http://localhost/api/tasks?page=2"
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 10,
+                        "links": [
+                          {
+                            "url": null,
+                            "label": "&laquo; Previous",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=1",
+                            "label": "1",
+                            "active": true
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=2",
+                            "label": "2",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=3",
+                            "label": "3",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=4",
+                            "label": "4",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=5",
+                            "label": "5",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=6",
+                            "label": "6",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=7",
+                            "label": "7",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=8",
+                            "label": "8",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=9",
+                            "label": "9",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=10",
+                            "label": "10",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=2",
+                            "label": "Next &raquo;",
+                            "active": false
+                          }
+                        ],
+                        "path": "http://localhost/api/tasks",
+                        "per_page": 5,
+                        "to": 5,
+                        "total": 50
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-200:search with user_id": {
+            "description": "search with user_id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "due_date": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer"
+                          },
+                          "status_id": {
+                            "type": "integer"
+                          },
+                          "priority_id": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "email_verified_at": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-orders": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-orders": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "null"
+                        },
+                        "next": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-orders": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-orders": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-orders": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-orders": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "search with user_id",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 2,
+                          "title": "sed",
+                          "description": "Modi molestias incidunt illum dolores. Mollitia repellendus sequi iusto dignissimos odio. Tenetur suscipit inventore quidem fugiat est ipsa ratione sunt.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "In Progress",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 2,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 13,
+                          "title": "voluptates",
+                          "description": "Ratione veniam possimus dolor et consequuntur repellat dolores. Quis voluptas rerum facilis pariatur nihil amet ea perspiciatis. A consequatur nulla asperiores quis iusto rem dolor sapiente.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Pending",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 1,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 27,
+                          "title": "error",
+                          "description": "Quis deserunt sapiente ut totam quae totam eius. Cum dolores et animi doloribus enim et. Dolorum et et temporibus ut.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Completed",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 3,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 32,
+                          "title": "officiis",
+                          "description": "Natus ea et vitae autem. Vitae rerum fuga sed natus molestiae eveniet. Molestias sunt et commodi vel. Cupiditate maiores corporis et quaerat non sed.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "On Hold",
+                          "priority": "High",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 4,
+                          "priority_id": 3,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 37,
+                          "title": "consequatur",
+                          "description": "Expedita mollitia voluptas fuga modi qui eligendi. Natus itaque illo harum eligendi. Molestias et aut sit praesentium.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "On Hold",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 4,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 50,
+                          "title": "minus",
+                          "description": "Cum tenetur harum laboriosam placeat dolor amet suscipit. Quo nulla assumenda aliquid consectetur possimus ut qui. Quaerat ea sit aut. Rerum aperiam eligendi rerum aut.",
+                          "due_date": "2024-08-25 13:12:52",
+                          "status": "On Hold",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 5,
+                          "status_id": 4,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 5,
+                            "name": "Mrs. Libbie Langworth II",
+                            "email": "gonzalo.boyle@example.com",
+                            "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        }
+                      ],
+                      "links": {
+                        "first": "http://localhost/api/tasks?page=1",
+                        "last": "http://localhost/api/tasks?page=1",
+                        "prev": null,
+                        "next": null
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "links": [
+                          {
+                            "url": null,
+                            "label": "&laquo; Previous",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=1",
+                            "label": "1",
+                            "active": true
+                          },
+                          {
+                            "url": null,
+                            "label": "Next &raquo;",
+                            "active": false
+                          }
+                        ],
+                        "path": "http://localhost/api/tasks",
+                        "per_page": 15,
+                        "to": 6,
+                        "total": 6
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-200:search no result": {
+            "description": "search no result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "null"
+                        },
+                        "next": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-orders": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "null"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-orders": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "null"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-orders": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-orders": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "search no result",
+                    "value": {
+                      "data": [],
+                      "links": {
+                        "first": "http://localhost/api/tasks?page=1",
+                        "last": "http://localhost/api/tasks?page=1",
+                        "prev": null,
+                        "next": null
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": null,
+                        "last_page": 1,
+                        "links": [
+                          {
+                            "url": null,
+                            "label": "&laquo; Previous",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks?page=1",
+                            "label": "1",
+                            "active": true
+                          },
+                          {
+                            "url": null,
+                            "label": "Next &raquo;",
+                            "active": false
+                          }
+                        ],
+                        "path": "http://localhost/api/tasks",
+                        "per_page": 15,
+                        "to": null,
+                        "total": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536736-run"
+      },
+      "post": {
+        "summary": "create",
+        "x-apidog-folder": "tasks/secured",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tasks/secured"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "new task"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "new description"
+                  },
+                  "status_id": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "priority_id": {
+                    "type": "string",
+                    "example": "2"
+                  },
+                  "due_date": {
+                    "type": "string",
+                    "example": "2024-08-30"
+                  }
+                },
+                "required": [
+                  "title",
+                  "description",
+                  "status_id",
+                  "priority_id",
+                  "due_date"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "201 Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "due_date": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "priority": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "integer"
+                        },
+                        "status_id": {
+                          "type": "string"
+                        },
+                        "priority_id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "description",
+                        "due_date",
+                        "status",
+                        "priority",
+                        "created_at",
+                        "updated_at",
+                        "user_id",
+                        "status_id",
+                        "priority_id"
+                      ],
+                      "x-apidog-orders": [
+                        "id",
+                        "title",
+                        "description",
+                        "due_date",
+                        "status",
+                        "priority",
+                        "created_at",
+                        "updated_at",
+                        "user_id",
+                        "status_id",
+                        "priority_id"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "data"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "201 Created",
+                    "value": {
+                      "message": "The task created successfully.",
+                      "data": {
+                        "id": 51,
+                        "title": "new task",
+                        "description": "new description",
+                        "due_date": "2024-08-30",
+                        "status": "Pending",
+                        "priority": "Medium",
+                        "created_at": "2024-08-22 14:05:37",
+                        "updated_at": "2024-08-22 14:05:37",
+                        "user_id": 1,
+                        "status_id": "1",
+                        "priority_id": "2"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422 empty form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "status_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "priority_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "title",
+                        "status_id",
+                        "priority_id"
+                      ],
+                      "x-apidog-orders": [
+                        "title",
+                        "status_id",
+                        "priority_id"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 empty form",
+                    "value": {
+                      "message": "The title field is required. (and 2 more errors)",
+                      "errors": {
+                        "title": [
+                          "The title field is required."
+                        ],
+                        "status_id": [
+                          "The status id field is required."
+                        ],
+                        "priority_id": [
+                          "The priority id field is required."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536739-run"
+      }
+    },
+    "/api/tasks/{id}": {
+      "get": {
+        "summary": "show",
+        "x-apidog-folder": "tasks",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tasks"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "show",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "due_date": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "priority": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "integer"
+                        },
+                        "status_id": {
+                          "type": "integer"
+                        },
+                        "priority_id": {
+                          "type": "integer"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "email_verified_at": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "email",
+                            "email_verified_at",
+                            "created_at"
+                          ],
+                          "x-apidog-orders": [
+                            "id",
+                            "name",
+                            "email",
+                            "email_verified_at",
+                            "created_at"
+                          ],
+                          "x-apidog-ignore-properties": []
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "description",
+                        "due_date",
+                        "status",
+                        "priority",
+                        "created_at",
+                        "updated_at",
+                        "user_id",
+                        "status_id",
+                        "priority_id",
+                        "user"
+                      ],
+                      "x-apidog-orders": [
+                        "id",
+                        "title",
+                        "description",
+                        "due_date",
+                        "status",
+                        "priority",
+                        "created_at",
+                        "updated_at",
+                        "user_id",
+                        "status_id",
+                        "priority_id",
+                        "user"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "x-apidog-orders": [
+                    "data"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "show",
+                    "value": {
+                      "data": {
+                        "id": 1,
+                        "title": "rerum",
+                        "description": "Accusamus tempore qui atque optio ea qui aut consequuntur. Enim aliquid consequatur ipsa vitae voluptas beatae illum fugit. Aliquam voluptates ab ut quia.",
+                        "due_date": "2024-08-26 13:12:52",
+                        "status": "On Hold",
+                        "priority": "Low",
+                        "created_at": "2024-08-22 13:12:52",
+                        "updated_at": "2024-08-22 13:12:52",
+                        "user_id": 6,
+                        "status_id": 4,
+                        "priority_id": 1,
+                        "user": {
+                          "id": 6,
+                          "name": "Flossie Fritsch",
+                          "email": "elnora.cremin@example.net",
+                          "email_verified_at": "2024-08-22T13:12:52.000000Z",
+                          "created_at": "2024-08-22T13:12:52.000000Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "message"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "404 Not Found",
+                    "value": {
+                      "message": "The requested task does not exist."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536737-run"
+      },
+      "post": {
+        "summary": "update",
+        "x-apidog-folder": "tasks/secured",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tasks/secured"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "14",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "_method",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "put",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "updated task"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "updated description"
+                  },
+                  "status_id": {
+                    "type": "string",
+                    "example": "3"
+                  },
+                  "priority_id": {
+                    "type": "string",
+                    "example": "2"
+                  },
+                  "due_date": {
+                    "type": "string",
+                    "example": "2024-08-30"
+                  }
+                },
+                "required": [
+                  "title",
+                  "description",
+                  "status_id",
+                  "priority_id",
+                  "due_date"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "message"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "200 OK",
+                    "value": {
+                      "message": "The task updated successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422 status id is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "status_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "status_id"
+                      ],
+                      "x-apidog-orders": [
+                        "status_id"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 status id is invalid",
+                    "value": {
+                      "message": "The selected status id is invalid.",
+                      "errors": {
+                        "status_id": [
+                          "The selected status id is invalid."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-422:422 empty form": {
+            "description": "422 empty form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "status_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "priority_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "title",
+                        "status_id",
+                        "priority_id"
+                      ],
+                      "x-apidog-orders": [
+                        "title",
+                        "status_id",
+                        "priority_id"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-orders": [
+                    "message",
+                    "errors"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "422 empty form",
+                    "value": {
+                      "message": "The title field is required. (and 2 more errors)",
+                      "errors": {
+                        "title": [
+                          "The title field is required."
+                        ],
+                        "status_id": [
+                          "The status id field is required."
+                        ],
+                        "priority_id": [
+                          "The priority id field is required."
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536740-run"
+      },
+      "delete": {
+        "summary": "delete",
+        "x-apidog-folder": "tasks/secured",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tasks/secured"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "3",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "message"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "200 OK",
+                    "value": {
+                      "message": "The task deleted successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "message"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "403 Forbidden",
+                    "value": {
+                      "message": "This action is unauthorized."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apidog-orders": [
+                    "message"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "404 Not Found",
+                    "value": {
+                      "message": "Task not found with ID: 4111"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536741-run"
+      }
+    },
+    "/api/tasks/user": {
+      "get": {
+        "summary": "getUserTasks",
+        "x-apidog-folder": "tasks/secured",
+        "x-apidog-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "tasks/secured"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "due_date": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer"
+                          },
+                          "status_id": {
+                            "type": "integer"
+                          },
+                          "priority_id": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "email_verified_at": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-orders": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-orders": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "null"
+                        },
+                        "next": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-orders": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-orders": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-orders": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-orders": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "list",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 3,
+                          "title": "nostrum",
+                          "description": "Distinctio dolores rerum quaerat voluptas impedit officiis. Nulla repudiandae illum quis hic blanditiis debitis et. Commodi est et ut odio repellat.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Completed",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "title": "saepe",
+                          "description": "A minima quis impedit unde. Sed itaque accusamus eos natus ut molestiae nisi.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Pending",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 1,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 6,
+                          "title": "autem",
+                          "description": "Quis non eos et quidem aut quasi qui. Distinctio aut odio illum neque sint officiis harum. Ab quis dolorum est qui laboriosam.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Pending",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 1,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 14,
+                          "title": "eum",
+                          "description": "Corporis consequuntur quos ad recusandae autem quia ducimus. Nemo et sequi debitis ullam non sit. Dignissimos ducimus velit est alias fugit enim dolorum.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "On Hold",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 4,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 23,
+                          "title": "sapiente",
+                          "description": "Sit fuga sint consequatur omnis dolores ut. Et illo et consectetur dolore tempore. Voluptatem a aperiam consequatur quam aut quam. Quae recusandae consequatur non aut.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "Completed",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 43,
+                          "title": "eum",
+                          "description": "Magnam facilis autem fuga qui eligendi modi qui. Sit voluptas quae earum est rem illo. Ad sed rerum non maiores. Molestiae recusandae animi eligendi expedita in.",
+                          "due_date": "2024-08-23 13:12:52",
+                          "status": "In Progress",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 2,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 47,
+                          "title": "veniam",
+                          "description": "Repudiandae reprehenderit fugit corrupti perspiciatis inventore tempora eum minus. Qui voluptatum tempore fugiat eius voluptatibus voluptatem. Fugit placeat laudantium vero id blanditiis natus.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Completed",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        }
+                      ],
+                      "links": {
+                        "first": "http://localhost/api/tasks/user?page=1",
+                        "last": "http://localhost/api/tasks/user?page=1",
+                        "prev": null,
+                        "next": null
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "links": [
+                          {
+                            "url": null,
+                            "label": "&laquo; Previous",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks/user?page=1",
+                            "label": "1",
+                            "active": true
+                          },
+                          {
+                            "url": null,
+                            "label": "Next &raquo;",
+                            "active": false
+                          }
+                        ],
+                        "path": "http://localhost/api/tasks/user",
+                        "per_page": 15,
+                        "to": 7,
+                        "total": 7
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-200:filter by status": {
+            "description": "filter by status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "due_date": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer"
+                          },
+                          "status_id": {
+                            "type": "integer"
+                          },
+                          "priority_id": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "email_verified_at": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-orders": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-orders": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "null"
+                        },
+                        "next": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-orders": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-orders": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-orders": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-orders": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "filter by status",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 3,
+                          "title": "nostrum",
+                          "description": "Distinctio dolores rerum quaerat voluptas impedit officiis. Nulla repudiandae illum quis hic blanditiis debitis et. Commodi est et ut odio repellat.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Completed",
+                          "priority": "Medium",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 2,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 23,
+                          "title": "sapiente",
+                          "description": "Sit fuga sint consequatur omnis dolores ut. Et illo et consectetur dolore tempore. Voluptatem a aperiam consequatur quam aut quam. Quae recusandae consequatur non aut.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "Completed",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 47,
+                          "title": "veniam",
+                          "description": "Repudiandae reprehenderit fugit corrupti perspiciatis inventore tempora eum minus. Qui voluptatum tempore fugiat eius voluptatibus voluptatem. Fugit placeat laudantium vero id blanditiis natus.",
+                          "due_date": "2024-08-26 13:12:52",
+                          "status": "Completed",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        }
+                      ],
+                      "links": {
+                        "first": "http://localhost/api/tasks/user?page=1",
+                        "last": "http://localhost/api/tasks/user?page=1",
+                        "prev": null,
+                        "next": null
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "links": [
+                          {
+                            "url": null,
+                            "label": "&laquo; Previous",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks/user?page=1",
+                            "label": "1",
+                            "active": true
+                          },
+                          {
+                            "url": null,
+                            "label": "Next &raquo;",
+                            "active": false
+                          }
+                        ],
+                        "path": "http://localhost/api/tasks/user",
+                        "per_page": 15,
+                        "to": 3,
+                        "total": 3
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "x-200:filter by due_date": {
+            "description": "filter by due_date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "due_date": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer"
+                          },
+                          "status_id": {
+                            "type": "integer"
+                          },
+                          "priority_id": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "email_verified_at": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-orders": [
+                              "id",
+                              "name",
+                              "email",
+                              "email_verified_at",
+                              "created_at"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-orders": [
+                          "id",
+                          "title",
+                          "description",
+                          "due_date",
+                          "status",
+                          "priority",
+                          "created_at",
+                          "updated_at",
+                          "user_id",
+                          "status_id",
+                          "priority_id",
+                          "user"
+                        ],
+                        "x-apidog-ignore-properties": []
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "null"
+                        },
+                        "next": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-orders": [
+                        "first",
+                        "last",
+                        "prev",
+                        "next"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "from": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-orders": [
+                              "url",
+                              "label",
+                              "active"
+                            ],
+                            "x-apidog-ignore-properties": []
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "to": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-orders": [
+                        "current_page",
+                        "from",
+                        "last_page",
+                        "links",
+                        "path",
+                        "per_page",
+                        "to",
+                        "total"
+                      ],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-orders": [
+                    "data",
+                    "links",
+                    "meta"
+                  ],
+                  "x-apidog-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "filter by due_date",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 14,
+                          "title": "eum",
+                          "description": "Corporis consequuntur quos ad recusandae autem quia ducimus. Nemo et sequi debitis ullam non sit. Dignissimos ducimus velit est alias fugit enim dolorum.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "On Hold",
+                          "priority": "Low",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 4,
+                          "priority_id": 1,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        },
+                        {
+                          "id": 23,
+                          "title": "sapiente",
+                          "description": "Sit fuga sint consequatur omnis dolores ut. Et illo et consectetur dolore tempore. Voluptatem a aperiam consequatur quam aut quam. Quae recusandae consequatur non aut.",
+                          "due_date": "2024-08-27 13:12:52",
+                          "status": "Completed",
+                          "priority": "Critical",
+                          "created_at": "2024-08-22 13:12:52",
+                          "updated_at": "2024-08-22 13:12:52",
+                          "user_id": 1,
+                          "status_id": 3,
+                          "priority_id": 4,
+                          "user": {
+                            "id": 1,
+                            "name": "Admin",
+                            "email": "admin@example.ir",
+                            "email_verified_at": "2024-08-22T13:12:51.000000Z",
+                            "created_at": "2024-08-22T13:12:52.000000Z"
+                          }
+                        }
+                      ],
+                      "links": {
+                        "first": "http://localhost/api/tasks/user?page=1",
+                        "last": "http://localhost/api/tasks/user?page=1",
+                        "prev": null,
+                        "next": null
+                      },
+                      "meta": {
+                        "current_page": 1,
+                        "from": 1,
+                        "last_page": 1,
+                        "links": [
+                          {
+                            "url": null,
+                            "label": "&laquo; Previous",
+                            "active": false
+                          },
+                          {
+                            "url": "http://localhost/api/tasks/user?page=1",
+                            "label": "1",
+                            "active": true
+                          },
+                          {
+                            "url": null,
+                            "label": "Next &raquo;",
+                            "active": false
+                          }
+                        ],
+                        "path": "http://localhost/api/tasks/user",
+                        "per_page": 15,
+                        "to": 2,
+                        "total": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/642679/apis/api-9536738-run"
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  },
+  "servers": [
+    {
+      "url": "http://localhost",
+      "description": "Develop Env"
+    }
+  ]
+}
