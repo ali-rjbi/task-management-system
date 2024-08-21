@@ -11,6 +11,7 @@ class TaskStatus extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    public $timestamps = false;
 
     public function task(): HasOne
     {
