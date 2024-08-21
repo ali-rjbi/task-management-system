@@ -47,7 +47,7 @@ class TaskController extends Controller
     {
         $tasks = $this->taskService->getTasks(
             params: ['user_id' => $request->user()->id],
-            perPage: $request->validated('perPage')
+            perPage: $request->validated('perPage',15)
         );
 
         return $this->paginatedTasksResponse($tasks);
