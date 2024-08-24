@@ -28,8 +28,11 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: Start Laravel Server
+      run: php artisan serve --port=8080 --host=127.0.0.1 &
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
+        APP_URL: http://127.0.0.1:8080
       run: php artisan test
