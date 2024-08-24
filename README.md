@@ -53,6 +53,7 @@ QUEUE_CONNECTION=redis
 
 REDIS_HOST=redis
 
+DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel
@@ -61,24 +62,28 @@ DB_PASSWORD=password
 ```
 
 Adjust these settings as needed according to your policies or requirements.
-
 4. **Start the Docker containers**:
    ```bash
    ./vendor/bin/sail up -d
    ```
 
-5. **Run migrations and seed the database**:
+5. **Generate the application key**:
+    ```bash
+   ./vendor/bin/sail artisan key:generate
+   ```
+
+6. **Run migrations and seed the database**:
    ```bash
    ./vendor/bin/sail artisan migrate --seed
    ```
 
-6. **Compile the frontend assets**:
+7. **Compile the frontend assets**:
    ```bash
    ./vendor/bin/sail npm install
    ./vendor/bin/sail npm run dev
    ```
 
-7. **Access the application**:
+8. **Access the application**:
    Open your browser and navigate to [http://localhost](http://localhost)
 
 ### Option 2: Running without Docker
@@ -105,18 +110,23 @@ If you do not have Docker installed but have PHP, MySQL, and Node.js set up on y
 4. **Create a database**:
    Create a new database in your MySQL server and update the `.env` file with your database credentials.
 
-5. **Run migrations and seed the database**:
+5. **Generate the application key**:
+   ```bash
+   ./vendor/bin/sail artisan key:generate
+   ```
+   
+6. **Run migrations and seed the database**:
    ```bash
    php artisan migrate --seed
    ```
 
-6. **Compile the frontend assets**:
+7. **Compile the frontend assets**:
    ```bash
    npm install
    npm run dev
    ```
 
-7. **Serve the application**:
+8. **Serve the application**:
    ```bash
    php artisan serve
    ```
