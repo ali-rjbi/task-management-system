@@ -53,7 +53,7 @@ QUEUE_CONNECTION=redis
 
 REDIS_HOST=redis
 
-DB_HOST=mariadb
+DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=sail
