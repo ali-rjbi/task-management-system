@@ -12,9 +12,9 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
 
-    Route::post('register', RegisterController::class)->name('register');
+    Route::post('register', RegisterController::class)->name('auth.register');
 
-    Route::post('login', LoginController::class)->name('login');
+    Route::post('login', LoginController::class)->name('auth.login');
 
 });
 
