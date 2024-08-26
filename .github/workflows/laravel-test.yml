@@ -51,4 +51,11 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: php artisan test --stop-on-failure --log-junit=./results.xml
+        run: vendor/bin/phpunit --log-junit=results.xml --coverage-clover=coverage.xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.5.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
+          flags: unittests
