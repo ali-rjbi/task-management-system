@@ -21,13 +21,6 @@ class TasksEditForm extends Component
     public $statuses = [];
     public $priorities = [];
 
-
-    public function mount(): void
-    {
-        $this->statuses = TaskStatus::all();
-        $this->priorities = TaskPriority::all();
-    }
-
     #[On('open-edit-drawer-task')]
     public function openEditDrawerTask($taskId, TaskService $taskService): void
     {
@@ -39,6 +32,9 @@ class TasksEditForm extends Component
         $this->status_id = $this->task->status_id;
         $this->priority_id = $this->task->priority_id;
         $this->due_date = $this->task->due_date;
+
+        $this->statuses = TaskStatus::all();
+        $this->priorities = TaskPriority::all();
     }
 
     public function updateTask(TaskService $taskService): void
